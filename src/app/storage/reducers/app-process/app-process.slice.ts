@@ -26,6 +26,7 @@ export const appProcess = createSlice({
     setUserAnswers: (state, action: PayloadAction<Answer[]>) => {
       state.userAnswers = action.payload;
     },
+    reset: () => initialState,
   },
   extraReducers(builder) {
     builder
@@ -48,4 +49,5 @@ export const {
   setQuestions,
   setCurrentQuestion,
   setUserAnswers,
+  reset,
 } = appProcess.actions;

@@ -34,3 +34,9 @@ export const ApiCategoryMap = {
   "31": 'Entertainment: Japanese Anime & amp; Manga',
   "32": 'Entertainment: Cartoon &amp; Animations',
 } as const;
+
+export const DifficultySortMap: Record<string, number> = {
+  "easy": 0,
+  "medium": 1,
+  "hard": 2,
+} as const;

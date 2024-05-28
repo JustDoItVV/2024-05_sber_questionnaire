@@ -9,4 +9,5 @@ export interface Question {
   options: string[];
   correctAnswer?: string | string[];
   incorrectAnswers?: string[];
+  userAnswers?: string[];
 }
