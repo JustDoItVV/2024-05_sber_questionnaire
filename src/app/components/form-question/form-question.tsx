@@ -17,13 +17,17 @@ export default function FormQuestion(): JSX.Element {
   const handleNextButtonClick = () => {
     dispatch(setUserAnswers([...userAnswers, { question: questions[currentQuestion].question, answers }]))
     dispatch(setCurrentQuestion(currentQuestion + 1));
-    setUserAnswers([]);
+    setAnswers([]);
   };
 
   return (
     <Form onFinish={handleNextButtonClick}>
       <Progress percent={currentQuestion / questions.length * 100} />
-      <CardQuestion question={questions[currentQuestion]} questionNumber={currentQuestion} setAnswers={setAnswers} />
+      <CardQuestion
+        question={questions[currentQuestion]}
+        questionNumber={currentQuestion}
+        setAnswers={setAnswers}
+      />
       <Button
         htmlType='submit'
         disabled={!answers.length}
