@@ -3,7 +3,8 @@ import { faker } from '@faker-js/faker';
 
 import { QuestionsCount } from '../const';
 import {
-    ApiQueryParams, ApiQuestionResponse, Difficulty, NameSpace, Question, QuestionType, State
+    Answer, ApiQueryParams, ApiQuestionResponse, Difficulty, NameSpace, Question, QuestionType,
+    State
 } from '../types';
 
 export const makeFakeQuestion = (): Question => {
@@ -20,6 +21,13 @@ export const makeFakeQuestion = (): Question => {
   }
 };
 
+export const makeFakeAnswer = (): Answer => {
+  return {
+    question: faker.commerce.productDescription(),
+    answers: [faker.animal.type()],
+  };
+};
+
 export const makeFakeQuestions = (count: number): Question[] => {
   const responseQuestions: Question[] = [];
 
@@ -28,6 +36,16 @@ export const makeFakeQuestions = (count: number): Question[] => {
   }
 
   return responseQuestions;
+}
+
+export const makeFakeAnswers = (count: number): Answer[] => {
+  const answers: Answer[] = [];
+
+  for (let i = 0; i < count; i++) {
+    answers.push(makeFakeAnswer());
+  }
+
+  return answers;
 }
 
 export const makeFakeQuestionsResponse = (count: number): ApiQuestionResponse => {
