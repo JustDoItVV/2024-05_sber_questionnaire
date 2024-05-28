@@ -29,8 +29,6 @@ export default function FormStart({ setCorrectAnswers }: FormStartProps): JSX.El
     setQuestionsCount(value);
   };
 
-  const hadndleStartButtonClick = () => { };
-
   return (
     <Form onFinish={handleFormSubmit}>
       <h1>Questionnaire</h1>
@@ -70,7 +68,6 @@ export default function FormStart({ setCorrectAnswers }: FormStartProps): JSX.El
       <Button
         htmlType='submit'
         loading={isLoading}
-        onClick={hadndleStartButtonClick}
         disabled={!questionsCount}
       >
         Start

@@ -31,6 +31,7 @@ npm run tests
 - `build` - сборка приложения для production
 - `lint` - проверка EsLint
 - `preview` - запуск тестового preview Vite сервера
+- `test` - запуск модульного тестирования jest
 
 ## Переменные окружения
 

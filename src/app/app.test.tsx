@@ -28,39 +28,43 @@ describe('App component', () => {
 
   beforeEach(() => {
     mockState = makeFakeState();
-    const withStoreResult = withStore(<App />, mockState);
-    withStoreComponent = withStoreResult.withStoreComponent;
   });
 
   test('should render FormStart component when no questions in state', () => {
     mockState.APP.questions = [];
+    const withStoreResult = withStore(<App />, mockState);
+    withStoreComponent = withStoreResult.withStoreComponent;
 
     render(withStoreComponent);
 
     expect(screen.queryByText('FormStart')).toBeInTheDocument();
-    expect(screen.queryByText('FormQuestion')).not.toBeInTheDocument();
-    expect(screen.queryByText('Results')).not.toBeInTheDocument();
+    expect(screen.queryByText('FormQuestion')).toBeNull();
+    expect(screen.queryByText('Results')).toBeNull();
   });
 
   test('should render FormQuestion component when userAnswers.length < questions.length', () => {
     mockState.APP.questions = makeFakeQuestions(5);
     mockState.APP.userAnswers = makeFakeAnswers(2);
+    const withStoreResult = withStore(<App />, mockState);
+    withStoreComponent = withStoreResult.withStoreComponent;
 
     render(withStoreComponent);
 
-    expect(screen.queryByText('FormStart')).not.toBeInTheDocument();
+    expect(screen.queryByText('FormStart')).toBeNull();
     expect(screen.queryByText('FormQuestion')).toBeInTheDocument();
-    expect(screen.queryByText('Results')).not.toBeInTheDocument();
+    expect(screen.queryByText('Results')).toBeNull();
   });
 
   test('should render Results component when userAnswers.length >= questions.length', () => {
     mockState.APP.questions = makeFakeQuestions(5);
     mockState.APP.userAnswers = makeFakeAnswers(5);
+    const withStoreResult = withStore(<App />, mockState);
+    withStoreComponent = withStoreResult.withStoreComponent;
 
     render(withStoreComponent);
 
-    expect(screen.queryByText('FormStart')).not.toBeInTheDocument();
-    expect(screen.queryByText('FormQuestion')).not.toBeInTheDocument();
+    expect(screen.queryByText('FormStart')).toBeNull();
+    expect(screen.queryByText('FormQuestion')).toBeNull();
     expect(screen.queryByText('Results')).toBeInTheDocument();
   });
 });

@@ -25,7 +25,8 @@
       "vite/client",
       "jest",
       "node",
-    ]
+    ],
+    "esModuleInterop": true,
   },
   "include": [
     "src",

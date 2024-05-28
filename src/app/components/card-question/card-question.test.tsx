@@ -13,19 +13,22 @@ import CardQuestion from './card-question';
 
 const mockSetAnswers = jest.fn((_value: SetStateAction<string[]>) => undefined);
 
-describe('Component CardFriends', () => {
+describe('Component CardQuestion', () => {
   let mockState: State;
   let withStoreComponent: JSX.Element;
   let question: Question;
-  let questionNumber: number;
+  const questionNumber = 0;
 
   beforeEach(() => {
     mockState = makeFakeState();
-    questionNumber = 1;
+    question = mockState.APP.questions[questionNumber];
+  });
+
+  test('should render correctly with provided question', () => {
     const withStoreResult = withStore(
       <Form>
         <CardQuestion
-          question={mockState.APP.questions[questionNumber]}
+          question={question}
           questionNumber={questionNumber}
           setAnswers={mockSetAnswers}
         />
@@ -33,24 +36,29 @@ describe('Component CardFriends', () => {
       mockState,
     );
     withStoreComponent = withStoreResult.withStoreComponent;
-  });
-
-  test('should render correctly with provided question', () => {
-    question = mockState.APP.questions[questionNumber];
 
     render(withStoreComponent);
 
-    // expect(screen.queryByText(question.question)).toBeInTheDocument();
+    expect(screen.queryByText(question.question)).toBeInTheDocument();
     expect(screen.queryByText(question.difficulty)).toBeInTheDocument();
-    // expect(screen.queryByText(question.options[0])).toBeInTheDocument();
+    expect(screen.queryByText(question.options[0])).toBeInTheDocument();
   });
 
-  test('should render correctly with provided question', async () => {
-    question = mockState.APP.questions[questionNumber];
+  test('should call setAnswer when click on question option', async () => {
+    const withStoreResult = withStore(
+      <Form>
+        <CardQuestion
+          question={question}
+          questionNumber={questionNumber}
+          setAnswers={mockSetAnswers}
+        />
+      </Form>,
+      mockState,
+    );
+    withStoreComponent = withStoreResult.withStoreComponent;
 
     render(withStoreComponent);
     await userEvent.click(screen.getByText(question.options[0]));
-    console.log(question, screen);
 
     expect(mockSetAnswers).toHaveBeenCalled();
   });

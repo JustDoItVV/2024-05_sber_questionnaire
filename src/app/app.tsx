@@ -26,7 +26,7 @@ export default function App() {
   const mergedQuestions = questions.map((question, index) => ({
     ...question,
     userAnswers: userAnswers[index].answers,
-    correctAnswer: correctAnswers[index].answers,
+    correctAnswer: correctAnswers[index] ? correctAnswers[index].answers : [],
   }));
   mergedQuestions.sort(sortQuestionsHelper(SortOption.Asc));
 
