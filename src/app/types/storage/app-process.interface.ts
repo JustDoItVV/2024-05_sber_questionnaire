@@ -6,5 +6,4 @@ export interface AppProcess {
   questions: Question[];
   currentQuestion: number;
   userAnswers: Answer[];
-  isFinished: boolean;
 }

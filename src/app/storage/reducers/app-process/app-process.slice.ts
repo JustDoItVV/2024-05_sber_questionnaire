@@ -8,7 +8,6 @@ const initialState: AppProcess = {
   questions: [],
   currentQuestion: 0,
   userAnswers: [],
-  isFinished: false,
 };
 
 export const appProcess = createSlice({
@@ -26,9 +25,6 @@ export const appProcess = createSlice({
     },
     setUserAnswers: (state, action: PayloadAction<Answer[]>) => {
       state.userAnswers = action.payload;
-    },
-    setIsFinished: (state, action: PayloadAction<boolean>) => {
-      state.isFinished = action.payload;
     },
   },
   extraReducers(builder) {
@@ -52,5 +48,4 @@ export const {
   setQuestions,
   setCurrentQuestion,
   setUserAnswers,
-  setIsFinished,
 } = appProcess.actions;

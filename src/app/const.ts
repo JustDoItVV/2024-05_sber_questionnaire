@@ -4,7 +4,7 @@ export const REQUEST_TIMEOUT = 5000;
 export enum QuestionsCount {
   Min = 1,
   Max = 50,
-  Default = 10,
+  Default = 5,
 }
 
 export const ApiCategoryMap = {
