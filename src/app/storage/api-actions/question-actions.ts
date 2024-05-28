@@ -1,16 +1,19 @@
 import { AxiosInstance } from 'axios';
+import { stringify } from 'qs';
 
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { API_URL } from '../../const';
-import { Answer, ApiQuestionResponse, AppDispatch, Question, State } from '../../types';
+import {
+  Answer, ApiQueryParams, ApiQuestionResponse, AppDispatch, Question, State
+} from '../../types';
 
 export const fetchQuestions = createAsyncThunk<
   [Question[], Answer[]],
-  undefined,
+  ApiQueryParams,
   { dispatch: AppDispatch; state: State; extra: AxiosInstance }
->('app/fetchQuestions', async (_, { extra: api }) => {
-  const { data } = await api.get<ApiQuestionResponse>(API_URL);
+>('app/fetchQuestions', async (queryParams, { extra: api }) => {
+  const { data } = await api.get<ApiQuestionResponse>(`${API_URL}?${stringify(queryParams)}`);
   const questions: Question[] = [];
   const correctAnswers: Answer[] = [];
 

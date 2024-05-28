@@ -8,3 +8,5 @@ export const selectCurrentQuestion = (state: Pick<State, NameSpace.App>): number
   state[NameSpace.App].currentQuestion;
 export const selectUserAnswers = (state: Pick<State, NameSpace.App>): Answer[] =>
   state[NameSpace.App].userAnswers;
+export const selectIsFinished = (state: Pick<State, NameSpace.App>): boolean =>
+  state[NameSpace.App].isFinished;

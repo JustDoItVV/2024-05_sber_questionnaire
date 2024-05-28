@@ -8,13 +8,14 @@ const initialState: AppProcess = {
   questions: [],
   currentQuestion: 0,
   userAnswers: [],
+  isFinished: false,
 };
 
 export const appProcess = createSlice({
   name: NameSpace.App,
   initialState,
   reducers: {
-    setIsloading: (state, action: PayloadAction<boolean>) => {
+    setIsLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
     },
     setQuestions: (state, action: PayloadAction<Question[]>) => {
@@ -26,6 +27,9 @@ export const appProcess = createSlice({
     setUserAnswers: (state, action: PayloadAction<Answer[]>) => {
       state.userAnswers = action.payload;
     },
+    setIsFinished: (state, action: PayloadAction<boolean>) => {
+      state.isFinished = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -36,13 +40,17 @@ export const appProcess = createSlice({
         state.questions = action.payload[0];
         state.isLoading = false;
       })
+      .addCase(fetchQuestions.rejected, (state) => {
+        state.isLoading = false;
+      })
       ;
   },
 });
 
 export const {
-  setIsloading,
+  setIsLoading,
   setQuestions,
   setCurrentQuestion,
   setUserAnswers,
+  setIsFinished,
 } = appProcess.actions;
