@@ -1,4 +1,4 @@
-import { Checkbox, Radio } from 'antd';
+import { Checkbox, Form, Radio } from 'antd';
 import { Dispatch, SetStateAction } from 'react';
 
 import { Question, QuestionType } from '../../types';
@@ -36,20 +36,23 @@ export default function CardQuestion(props: CardQuestionProps): JSX.Element {
       <p>{question.question}</p>
       {
         question.type === QuestionType.Multiple &&
-        <Checkbox.Group
-          options={question.options}
-          onChange={handleCheckboxChange}
-          defaultValue={userAnswers}
-          disabled={!editable}
-        />
+        <Form.Item name={`options_group_${questionNumber}`} initialValue={question.userAnswers}>
+          <Checkbox.Group
+            options={question.options}
+            onChange={handleCheckboxChange}
+            disabled={!editable}
+          />
+        </Form.Item>
       }
       {
         question.type === QuestionType.Boolean &&
-        <Radio.Group
-          options={question.options}
-          onChange={handleRadioChange}
-          disabled={!editable}
-        />
+        <Form.Item name={`options_group_${questionNumber}`} initialValue={question.userAnswers}>
+          <Radio.Group
+            options={question.options}
+            onChange={handleRadioChange}
+            disabled={!editable}
+          />
+        </Form.Item>
       }
       {
         correctAnswers && userAnswers &&

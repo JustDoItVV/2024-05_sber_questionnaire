@@ -1,4 +1,4 @@
-import { Button } from 'antd';
+import { Button, Form } from 'antd';
 import { useState } from 'react';
 
 import { useAppDispatch } from '../../hooks';
@@ -45,7 +45,9 @@ export default function Results({ questions }: ResultsProps): JSX.Element {
       <Button onClick={handleSortButtonClick}>
         Sort by difficulty
       </Button>
-      {results}
+      <Form>
+        {results}
+      </Form>
       <Button onClick={handleTryAgainButtonClick}>
         Try again
       </Button>
