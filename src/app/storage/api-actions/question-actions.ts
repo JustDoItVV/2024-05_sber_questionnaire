@@ -6,7 +6,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { API_URL } from '../../const';
 import {
-  Answer, ApiQueryParams, ApiQuestionResponse, AppDispatch, Question, State
+    Answer, ApiQueryParams, ApiQuestionResponse, AppDispatch, Question, State
 } from '../../types';
 
 export const fetchQuestions = createAsyncThunk<
@@ -15,8 +15,6 @@ export const fetchQuestions = createAsyncThunk<
   { dispatch: AppDispatch; state: State; extra: AxiosInstance }
 >('app/fetchQuestions', async (queryParams, { extra: api }) => {
   try {
-
-
     const { data } = await api.get<ApiQuestionResponse>(`${API_URL}?${stringify(queryParams)}`);
     const questions: Question[] = [];
     const correctAnswers: Answer[] = [];
