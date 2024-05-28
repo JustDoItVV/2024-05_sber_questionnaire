@@ -5,6 +5,7 @@ module.exports = {
     "!src/**/*.d.ts",
     "!src/mocks/**",
   ],
+  setupFiles: ['./jest.setup.ts'],
   extensionsToTreatAsEsm: ['.ts', '.tsx'],
   coveragePathIgnorePatterns: [],
   testEnvironment: "jsdom",
@@ -13,8 +14,25 @@ module.exports = {
     '^.+\\.(t|j)sx?$': [
       "@swc/jest",
       {
-        jsc: {
-          target: "es2022",
+        "jsc": {
+          "target": "es2022",
+          "parser": {
+            "syntax": "typescript",
+            "tsx": true,
+            "dynamicImport": true,
+            "privateMethod": true,
+            "functionBind": true,
+            "exportDefaultFrom": true,
+            "exportNamespaceFrom": true,
+            "importMeta": true
+          },
+          "transform": {
+            "react": {
+              "runtime": "automatic"
+            }
+          },
+          "loose": true,
+          "keepClassNames": true
         },
       },
     ],
