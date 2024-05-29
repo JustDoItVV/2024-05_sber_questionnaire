@@ -6,8 +6,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { API_URL } from '../../const';
 import {
-    Answer, ApiQueryParams, ApiQuestionResponse, AppDispatch, Question, State
+  Answer, ApiQueryParams, ApiQuestionResponse, AppDispatch, Question, State
 } from '../../types';
+import { decodeString } from '../../utils';
 
 export const fetchQuestions = createAsyncThunk<
   [Question[], Answer[]],
@@ -20,6 +21,16 @@ export const fetchQuestions = createAsyncThunk<
     const correctAnswers: Answer[] = [];
 
     data.results.forEach((item) => {
+      item.question = decodeString(item.question);
+
+      if (Array.isArray(item.correctAnswer)) {
+        item.correctAnswer = item.correctAnswer.map((answer) => decodeString(answer));
+      } else if (item.correctAnswer) {
+        item.correctAnswer = decodeString(item.correctAnswer);
+      }
+
+      item.incorrectAnswers = item.incorrectAnswers?.map((answer) => decodeString(answer));
+
       const question: Question = { ...item };
       delete question.correctAnswer;
       delete question.incorrectAnswers;

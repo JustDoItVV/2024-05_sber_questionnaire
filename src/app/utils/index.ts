@@ -23,3 +23,9 @@ export const getHoverColors = (colors: string[]) =>
   colors.map((color) => new TinyColor(color).lighten(5).toString());
 export const getActiveColors = (colors: string[]) =>
   colors.map((color) => new TinyColor(color).darken(5).toString());
+
+export const decodeString = (encoded: string): string => {
+  const textArea = document.createElement('textarea');
+  textArea.innerHTML = encoded;
+  return textArea.value;
+}
