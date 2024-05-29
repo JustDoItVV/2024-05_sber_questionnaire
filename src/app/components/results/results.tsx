@@ -1,3 +1,5 @@
+import './results.css';
+
 import { Button, Card, ConfigProvider, Form, Statistic } from 'antd';
 import { useState } from 'react';
 
@@ -43,6 +45,7 @@ export default function Results({ questions }: ResultsProps): JSX.Element {
 
   return (
     <Card
+      className='card-results__container'
       type='inner'
       title={<h1>Results</h1>}
     >
