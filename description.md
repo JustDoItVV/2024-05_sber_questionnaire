@@ -22,8 +22,18 @@ npm run dev
 Запуск юнит тестов
 
 ```
-npm run tests
+npm run test
 ```
+или
+```
+npm run test:cover
+```
+
+Запуск e2e сценариев
+```
+npm run test:e2e
+```
+
 
 ## Сценарии
 

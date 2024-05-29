@@ -54,8 +54,8 @@ export default function Results({ questions }: ResultsProps): JSX.Element {
         Sort by difficulty
         {
           sorter === SortOption.Asc
-            ? <DownOutlined />
-            : <UpOutlined />
+            ? <UpOutlined />
+            : <DownOutlined />
         }
       </Button>
       <Form>
