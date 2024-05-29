@@ -1,0 +1,20 @@
+.card-question {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.card-question h2 {
+  margin-left: 10%;
+}
+
+.card-question .ant-badge {
+  width: 60px;
+}
+
+.card-question .ant-checkbox-group,
+.card-question .ant-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin-left: 5%;
+  margin-top: 10px;
+}

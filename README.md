@@ -1,30 +1,31 @@
-# React + TypeScript + Vite
+# Сбер - тестовое задание - опросник
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Задача: написать реализацию опросника.
 
-Currently, two official plugins are available:
+Вопросы отображаются по одному, каждый следующий вопрос появляется после ответа на предыдущий.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Правильный вариант ответа может быть один (использовать radio) или несколько (использовать checkbox).
+Вопросы обладают атрибутом "сложность" со значениями - easy, medium, hard. На финальном шаге отобразить все результаты используя градацию по уровням сложности (difficulty).
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+# Демо
 
-- Configure the top-level `parserOptions` property like this:
+Демо доступно по ссылке: [https://justdoitvv.github.io/2024-05_sber_questionnaire/](https://justdoitvv.github.io/2024-05_sber_questionnaire/)
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+![state_1](misc/images/state_1.png)
+![state_2_1](misc/images/state_2_1.png)
+![state_2_2](misc/images/state_2_2.png)
+![state_3](misc/images/state_3.png)
+
+# Запуск проекта - Development
+
+Запуск проекта на этапе разработки, описание переменных окружения, сценариев приведено
+ в файле [description.md](description.md).
+
+# Сборка проекта - Stage/Production
+
+```shell
+npm run build
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Далее файлы из папки `dist` поместить на веб-сервер.
