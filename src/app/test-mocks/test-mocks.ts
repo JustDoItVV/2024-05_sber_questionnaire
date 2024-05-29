@@ -3,16 +3,22 @@ import { faker } from '@faker-js/faker';
 
 import { QuestionsCount } from '../const';
 import {
-    Answer, ApiQueryParams, ApiQuestionResponse, Difficulty, NameSpace, Question, QuestionType,
-    State
+  Answer, ApiQueryParams, ApiQuestionResponse, Difficulty, NameSpace, Question, QuestionType,
+  State
 } from '../types';
 
 export const makeFakeQuestion = (): Question => {
   const options = [faker.animal.type(), faker.color.human()];
 
+  const types = Object.values(QuestionType);
+  types.splice(types.indexOf(QuestionType.Any), 1);
+
+  const difficulties = Object.values(Difficulty);
+  difficulties.splice(difficulties.indexOf(Difficulty.Any), 1);
+
   return {
-    type: faker.helpers.arrayElement(Object.values(QuestionType)) as QuestionType,
-    difficulty: faker.helpers.arrayElement(Object.values(Difficulty)) as Difficulty,
+    type: faker.helpers.arrayElement(types) as QuestionType,
+    difficulty: faker.helpers.arrayElement(difficulties) as Difficulty,
     category: faker.animal.type(),
     question: faker.commerce.product(),
     options,
