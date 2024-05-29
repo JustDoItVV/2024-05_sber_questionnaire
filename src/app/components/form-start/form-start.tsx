@@ -51,7 +51,6 @@ export default function FormStart({ setCorrectAnswers }: FormStartProps): JSX.El
         <h3>Category</h3>
         <Form.Item name='category' initialValue={'Any'} >
           <Select
-            // style={{ paddingLeft: '20px' }}
             options={Object.entries(ApiCategoryMap).map(
               ([key, value]) => ({ value: key, label: value })
             )}
