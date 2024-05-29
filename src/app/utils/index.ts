@@ -1,3 +1,5 @@
+import { TinyColor } from '@ctrl/tinycolor';
+
 import { DifficultySortMap } from '../const';
 import { Question, SortOption } from '../types';
 
@@ -16,3 +18,8 @@ export const isCorrectAnswer = (question: Question) => {
   }
   return false;
 };
+
+export const getHoverColors = (colors: string[]) =>
+  colors.map((color) => new TinyColor(color).lighten(5).toString());
+export const getActiveColors = (colors: string[]) =>
+  colors.map((color) => new TinyColor(color).darken(5).toString());

@@ -1,12 +1,15 @@
-import { Button, Form, FormProps, Select, Slider } from 'antd';
+import './form-start.css';
+
+import { Button, Card, ConfigProvider, Form, FormProps, Select, Slider } from 'antd';
 import { Dispatch, SetStateAction, useState } from 'react';
 
 import { unwrapResult } from '@reduxjs/toolkit';
 
-import { ApiCategoryMap, QuestionsCount } from '../../const';
+import { ApiCategoryMap, BUTTON_START_COLORS, QuestionsCount } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchQuestions, selectIsLoading } from '../../storage';
 import { Answer, ApiQueryParams, Difficulty, QuestionType } from '../../types';
+import { getActiveColors, getHoverColors } from '../../utils';
 
 type FormStartProps = {
   setCorrectAnswers: Dispatch<SetStateAction<Answer[]>>;
@@ -30,48 +33,69 @@ export default function FormStart({ setCorrectAnswers }: FormStartProps): JSX.El
   };
 
   return (
-    <Form onFinish={handleFormSubmit}>
-      <h1>Questionnaire</h1>
-      <p>Sber test task</p>
-      <h3>Questions count</h3>
-      <Form.Item name='amount' label={questionsCount} initialValue={QuestionsCount.Default}>
-        <Slider
-          min={QuestionsCount.Min}
-          max={QuestionsCount.Max}
-          onChange={handleSliderChange}
-        />
-      </Form.Item>
-      <h3>Category</h3>
-      <Form.Item name='category' initialValue={'Any'} >
-        <Select
-          options={Object.entries(ApiCategoryMap).map(
-            ([key, value]) => ({ value: key, label: value })
-          )}
-        />
-      </Form.Item>
-      <h3>Difficulty</h3>
-      <Form.Item name='difficulty' initialValue={Difficulty.Any}>
-        <Select
-          options={Object.entries(Difficulty).map(
-            ([key, value]) => ({ value, label: key })
-          )}
-        />
-      </Form.Item>
-      <h3>Questions type</h3>
-      <Form.Item name='type' initialValue={QuestionType.Any}>
-        <Select
-          options={Object.entries(QuestionType).map(
-            ([key, value]) => ({ value, label: key })
-          )}
-        />
-      </Form.Item>
-      <Button
-        htmlType='submit'
-        loading={isLoading}
-        disabled={!questionsCount}
-      >
-        Start
-      </Button>
-    </Form>
+    <Card
+      type='inner'
+      className='form-start__card-container'
+      title={<h1>Questionnaire</h1>}
+    >
+      <Form onFinish={handleFormSubmit}>
+        <p>Sber test task</p>
+        <h3>Questions count</h3>
+        <Form.Item name='amount' label={questionsCount} initialValue={QuestionsCount.Default}>
+          <Slider
+            min={QuestionsCount.Min}
+            max={QuestionsCount.Max}
+            onChange={handleSliderChange}
+          />
+        </Form.Item>
+        <h3>Category</h3>
+        <Form.Item name='category' initialValue={'Any'} >
+          <Select
+            // style={{ paddingLeft: '20px' }}
+            options={Object.entries(ApiCategoryMap).map(
+              ([key, value]) => ({ value: key, label: value })
+            )}
+          />
+        </Form.Item>
+        <h3>Difficulty</h3>
+        <Form.Item name='difficulty' initialValue={Difficulty.Any}>
+          <Select
+            options={Object.entries(Difficulty).map(
+              ([key, value]) => ({ value, label: key })
+            )}
+          />
+        </Form.Item>
+        <h3>Questions type</h3>
+        <Form.Item name='type' initialValue={QuestionType.Any}>
+          <Select
+            options={Object.entries(QuestionType).map(
+              ([key, value]) => ({ value, label: key })
+            )}
+          />
+        </Form.Item>
+        <ConfigProvider
+          theme={{
+            components: {
+              Button: {
+                colorPrimary: `linear-gradient(135deg, ${BUTTON_START_COLORS.join(', ')})`,
+                colorPrimaryHover: `linear-gradient(135deg, ${getHoverColors(BUTTON_START_COLORS).join(', ')})`,
+                colorPrimaryActive: `linear-gradient(135deg, ${getActiveColors(BUTTON_START_COLORS).join(', ')})`,
+                lineWidth: 0,
+              }
+            }
+          }}
+        >
+          <Button
+            type='primary'
+            htmlType='submit'
+            loading={isLoading}
+            disabled={!questionsCount}
+            size='large'
+          >
+            Start
+          </Button>
+        </ConfigProvider>
+      </Form>
+    </Card>
   );
 }

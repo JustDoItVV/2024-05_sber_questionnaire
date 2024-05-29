@@ -1,7 +1,10 @@
-import { Checkbox, Form, Radio } from 'antd';
+import './card-question.css';
+
+import { Badge, Card, Checkbox, Form, Radio } from 'antd';
+import classnames from 'classnames';
 import { Dispatch, SetStateAction } from 'react';
 
-import { Question, QuestionType } from '../../types';
+import { Difficulty, Question, QuestionType } from '../../types';
 
 import type { GetProp, RadioChangeEvent } from 'antd';
 type CardQuestionProps = {
@@ -16,6 +19,7 @@ type CardQuestionProps = {
 export default function CardQuestion(props: CardQuestionProps): JSX.Element {
   const { question, questionNumber, setAnswers, userAnswers, correctAnswers } = props;
   const editable = props.editable ?? true;
+  const areUserAnswersCorrect = correctAnswers && userAnswers && correctAnswers.length === userAnswers.length && correctAnswers.every((value, index) => value === userAnswers[index]);
 
   const handleCheckboxChange: GetProp<typeof Checkbox.Group<string>, 'onChange'> = (values) => {
     if (setAnswers) {
@@ -30,15 +34,32 @@ export default function CardQuestion(props: CardQuestionProps): JSX.Element {
   };
 
   return (
-    <>
-      <h2>Question {questionNumber + 1}</h2>
-      <span>{question.difficulty}</span>
-      <p>{question.question}</p>
+    <Card
+      className='card-question'
+      type='inner'
+      title={<h2>Question {questionNumber + 1}</h2>}
+      extra={
+        <Badge
+          count={question.difficulty}
+          color={classnames({
+            'green': question.difficulty === Difficulty.Easy,
+            'yellow': question.difficulty === Difficulty.Medium,
+            'red': question.difficulty === Difficulty.Hard,
+          })}
+        />
+      }
+    >
+      <b>{question.question}</b>
       {
         question.type === QuestionType.Multiple &&
-        <Form.Item name={`options_group_${questionNumber}`} initialValue={question.userAnswers}>
+        <Form.Item
+          name={`options_group_${questionNumber}`}
+          initialValue={question.userAnswers}
+          valuePropName="checked"
+        >
           <Checkbox.Group
             options={question.options}
+            value={question.userAnswers}
             onChange={handleCheckboxChange}
             disabled={!editable}
           />
@@ -46,9 +67,14 @@ export default function CardQuestion(props: CardQuestionProps): JSX.Element {
       }
       {
         question.type === QuestionType.Boolean &&
-        <Form.Item name={`options_group_${questionNumber}`} initialValue={question.userAnswers}>
+        <Form.Item
+          name={`options_group_${questionNumber}`}
+          initialValue={question.userAnswers}
+          valuePropName="checked"
+        >
           <Radio.Group
             options={question.options}
+            value={question.userAnswers}
             onChange={handleRadioChange}
             disabled={!editable}
           />
@@ -56,8 +82,14 @@ export default function CardQuestion(props: CardQuestionProps): JSX.Element {
       }
       {
         correctAnswers && userAnswers &&
-        <p>{correctAnswers.length === userAnswers.length && correctAnswers.every((value, index) => value === userAnswers[index]) ? 'Correct' : 'Wrong'}</p>
+        <Badge
+          count={correctAnswers.length === userAnswers.length && correctAnswers.every((value, index) => value === userAnswers[index]) ? 'Correct' : 'Wrong'}
+          color={classnames({
+            'green': areUserAnswersCorrect,
+            'red': !areUserAnswersCorrect,
+          })}
+        />
       }
-    </>
+    </Card>
   );
 }

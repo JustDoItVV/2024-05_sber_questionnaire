@@ -1,10 +1,13 @@
-import { Button, Form } from 'antd';
+import { Button, Card, ConfigProvider, Form, Statistic } from 'antd';
 import { useState } from 'react';
 
+import { DownOutlined, UpOutlined } from '@ant-design/icons';
+
+import { BUTTON_AGAIN_COLORS } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { reset } from '../../storage';
 import { Question, SortOption } from '../../types';
-import { isCorrectAnswer, sortQuestionsHelper } from '../../utils';
+import { getActiveColors, getHoverColors, isCorrectAnswer, sortQuestionsHelper } from '../../utils';
 import CardQuestion from '../card-question/card-question';
 
 type ResultsProps = {
@@ -39,18 +42,42 @@ export default function Results({ questions }: ResultsProps): JSX.Element {
     ));
 
   return (
-    <>
-      <h1>Results</h1>
-      <p>Score: {userScore}/{questions.length}</p>
+    <Card
+      type='inner'
+      title={<h1>Results</h1>}
+    >
+      <Statistic title="Score" value={userScore} suffix={`/ ${questions.length}`} />
       <Button onClick={handleSortButtonClick}>
         Sort by difficulty
+        {
+          sorter === SortOption.Asc
+            ? <DownOutlined />
+            : <UpOutlined />
+        }
       </Button>
       <Form>
         {results}
       </Form>
-      <Button onClick={handleTryAgainButtonClick}>
-        Try again
-      </Button>
-    </>
+      <ConfigProvider
+        theme={{
+          components: {
+            Button: {
+              colorPrimary: `linear-gradient(90deg,  ${BUTTON_AGAIN_COLORS.join(', ')})`,
+              colorPrimaryHover: `linear-gradient(90deg, ${getHoverColors(BUTTON_AGAIN_COLORS).join(', ')})`,
+              colorPrimaryActive: `linear-gradient(90deg, ${getActiveColors(BUTTON_AGAIN_COLORS).join(', ')})`,
+              lineWidth: 0,
+            },
+          },
+        }}
+      >
+        <Button
+          type='primary'
+          onClick={handleTryAgainButtonClick}
+          size='large'
+        >
+          Try again
+        </Button>
+      </ConfigProvider>
+    </Card>
   );
 }

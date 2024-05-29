@@ -1,10 +1,14 @@
-import { Button, Form, Progress } from 'antd';
+import './form-question.css';
+
+import { Button, ConfigProvider, Form, Progress } from 'antd';
 import { useState } from 'react';
 
+import { BUTTON_NEXT_COLORS } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
   selectCurrentQuestion, selectQuestions, selectUserAnswers, setCurrentQuestion, setUserAnswers
 } from '../../storage';
+import { getActiveColors, getHoverColors } from '../../utils';
 import CardQuestion from '../card-question/card-question';
 
 export default function FormQuestion(): JSX.Element {
@@ -21,19 +25,37 @@ export default function FormQuestion(): JSX.Element {
   };
 
   return (
-    <Form onFinish={handleNextButtonClick}>
+    <Form
+      className='form-question__container'
+      onFinish={handleNextButtonClick}
+    >
       <Progress percent={currentQuestion / questions.length * 100} />
       <CardQuestion
         question={questions[currentQuestion]}
         questionNumber={currentQuestion}
         setAnswers={setAnswers}
       />
-      <Button
-        htmlType='submit'
-        disabled={!answers.length}
+      <ConfigProvider
+        theme={{
+          components: {
+            Button: {
+              colorPrimary: `linear-gradient(135deg, ${BUTTON_NEXT_COLORS.join(', ')})`,
+              colorPrimaryHover: `linear-gradient(135deg, ${getHoverColors(BUTTON_NEXT_COLORS).join(', ')})`,
+              colorPrimaryActive: `linear-gradient(135deg, ${getActiveColors(BUTTON_NEXT_COLORS).join(', ')})`,
+              lineWidth: 0,
+            },
+          },
+        }}
       >
-        Next
-      </Button>
+        <Button
+          type='primary'
+          htmlType='submit'
+          disabled={!answers.length}
+          size='large'
+        >
+          Next
+        </Button>
+      </ConfigProvider>
     </Form>
   );
 }

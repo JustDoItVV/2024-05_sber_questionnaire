@@ -40,3 +40,7 @@ export const DifficultySortMap: Record<string, number> = {
   "medium": 1,
   "hard": 2,
 } as const;
+
+export const BUTTON_START_COLORS = ['#40e495', '#30dd8a', '#2bb673'];
+export const BUTTON_NEXT_COLORS = ['#6253E1', '#04BEFE'];
+export const BUTTON_AGAIN_COLORS = ['#fc6076', '#ff9a44', '#ef9d43', '#e75516'];

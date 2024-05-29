@@ -13,10 +13,13 @@
     "test:e2e": "jest --testPathPattern=.*e2e.test.ts --config ./jest.config.e2e.js"
   },
   "dependencies": {
+    "@ant-design/icons": "5.3.7",
+    "@ctrl/tinycolor": "4.1.0",
     "@reduxjs/toolkit": "2.2.5",
     "antd": "5.17.4",
     "axios": "1.7.2",
     "axios-case-converter": "1.1.1",
+    "classnames": "2.5.1",
     "qs": "6.12.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

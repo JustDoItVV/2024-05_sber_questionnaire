@@ -1,0 +1,7 @@
+.form-question__container {
+  width: 700px;
+}
+
+.form-question__container .ant-btn {
+  width: 100px;
+}
