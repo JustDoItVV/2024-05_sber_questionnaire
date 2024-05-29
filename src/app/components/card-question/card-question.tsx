@@ -57,12 +57,19 @@ export default function CardQuestion(props: CardQuestionProps): JSX.Element {
           initialValue={question.userAnswers}
           valuePropName="checked"
         >
-          <Checkbox.Group
-            options={question.options}
-            value={question.userAnswers}
-            onChange={handleCheckboxChange}
-            disabled={!editable}
-          />
+          {
+            editable
+              ? <Checkbox.Group
+                options={question.options}
+                onChange={handleCheckboxChange}
+              />
+              : <Checkbox.Group
+                options={question.options}
+                value={question.userAnswers}
+                onChange={handleCheckboxChange}
+                disabled
+              />
+          }
         </Form.Item>
       }
       {
@@ -72,12 +79,19 @@ export default function CardQuestion(props: CardQuestionProps): JSX.Element {
           initialValue={question.userAnswers}
           valuePropName="checked"
         >
-          <Radio.Group
-            options={question.options}
-            value={question.userAnswers}
-            onChange={handleRadioChange}
-            disabled={!editable}
-          />
+          {
+            editable
+              ? <Radio.Group
+                options={question.options}
+                onChange={handleRadioChange}
+              />
+              : <Radio.Group
+                options={question.options}
+                value={question.userAnswers && question.userAnswers[0]}
+                onChange={handleRadioChange}
+                disabled
+              />
+          }
         </Form.Item>
       }
       {
