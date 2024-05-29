@@ -32,7 +32,7 @@ describe('Component FormQuestion', () => {
     withStoreComponent = withStoreResult.withStoreComponent;
   });
 
-  test('should render coorectly', () => {
+  test('should render correctly', () => {
     render(withStoreComponent);
 
     expect(screen.getByText('CardQuestion')).toBeInTheDocument();
